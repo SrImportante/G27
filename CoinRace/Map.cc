@@ -24,14 +24,14 @@ Map::Map()
 	std::cout << "Introdueix un nivell: \nFacil: 1\nNormal: 2\nDificil: 3\n\n" << std::endl;
 	std::cin >> dificult;
 	
-	const int FILAS{ 5 * static_cast<int>(dificult) };
-	const int COLUM{ 5 * static_cast<int>(dificult) * 2 };
-	MapMatrix = new char*[FILAS];
+	const int ROW{ 5 * static_cast<int>(dificult) };
+	const int COLUMN{ 5 * static_cast<int>(dificult) * 2 };
+	MapMatrix = new char*[ROW]; //Crea una array dinamica de punters a chars (filas)
 
-	for (int i = 0; i < FILAS; i++)
+	for (int i = 0; i < ROW; i++)
 	{
-		MapMatrix[i] = new char[COLUM];
-		for (int j = 0; j < COLUM; j++)
+		MapMatrix[i] = new char[COLUMN]; //Cada punter esta apuntant a una array dinamica de chars (coumnes)
+		for (int j = 0; j < COLUMN; j++)
 		{
 			MapMatrix[i][j] = '*';
 			std::cout << MapMatrix[i][j];
