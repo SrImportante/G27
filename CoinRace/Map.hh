@@ -1,12 +1,16 @@
 class Map
 {
 private:
-	enum class Level { Easy, Medium, Hard };
-	char MapMatrix[15][30];
+	enum class Level { EASY=1, MEDIUM, HARD };
+	char *MapMatrix; //ha d'estar en el heap (new)
 
 public:
-	Map::Map();
-	Level Map::setLevel();
-	void Map::modify(int &x, int &y, char &element);
+	//constructor
+	Map(void);
 
+	//Level Map::setLevel();
+	void modify(int &x, int &y, char &element);
+
+	friend std::istream& operator>> (std::istream &is, Level &lvl);
+	friend std::ostream& operator<< (std::ostream &os, const Level &lvl);
 };

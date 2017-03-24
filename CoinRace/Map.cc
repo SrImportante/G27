@@ -1,44 +1,48 @@
 #include <iostream>
 #include <stdio.h>
-
 #include "Map.hh"
 
-
-class Map
+std::istream& operator>> (std::istream &is, Map::Level &lvl)
 {
-private:
-	enum class Level { Easy, Medium, Hard };
-	char MapMatrix[15][30];  //ha d'estar en el heap (new)
+	int intVal;
+	is >> intVal;
+	lvl = static_cast<Map::Level>(intVal);
+	return is;
+}
 
-public:
-	Map::Map()
-	{
-		for (int i = 0; i < 5 * static_cast<int>(Map::setLevel()); i++) 
-		{
-			for (int j = 0; i < 5 * static_cast<int>(Map::setLevel()) * 2; j++)
-			{
-				MapMatrix[i][j] = '*';
-				std::cout << MapMatrix[i][j];
-			}
+std::ostream& operator<< (std::ostream &os, const Map::Level &lvl) 
+{
+	switch (lvl) {
+	case Map::Level::EASY: return os << "easy";
+	case Map::Level::MEDIUM: return os << "medium";
+	case Map::Level::HARD: return os << "hard";
+	}}
+Map::Map()
+{
+	Level dificult;
 
-			std::cout << "\n";
-
-		}
-	};
+	std::cout << "Introdueix un nivell: \nFacil: 1\nNormal: 2\nDificil: 3\n\n" << std::endl;
+	std::cin >> dificult;
 	
-	Level Map::setLevel() 
-	{
-		Level level;
-		int input;
-	std::cout << "Introdueix un nivell: \n\nFacil: 1\nNormal: 2\nDificil: 3\n\n" << std::endl;
-	std::cin >> input;
-	level = static_cast<Level>(input);
-	return level;
-    }
+	const int FILAS{ 5 * static_cast<int>(dificult) };
+	const int COLUM{ 5 * static_cast<int>(dificult) * 2 };
+	MapMatrix = new char[FILAS][COLUM];
 
-	//x i y son la posicio del jugador, i element el char que ha de posar
-	void Map::modify(int &x, int &y, char &element)
+	for (int i = 0; i < 5 * static_cast<int>(dificult); i++)
 	{
-		MapMatrix[x][y] = element;
+		for (int j = 0; j < 5 * static_cast<int>(dificult) * 2; j++)
+		{
+			MapMatrix[i][j] = '*';
+			std::cout << MapMatrix[i][j];
+		}
+		std::cout << std::endl;
 	}
 };
+
+//x i y son la posicio del jugador, i element el char que ha de posar
+void Map::modify(int &x, int &y, char &element)
+{
+	MapMatrix[x][y] = element;
+}
+
+

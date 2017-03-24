@@ -5,6 +5,7 @@
 
 int main()
 {
-	Map::Map();
-
+	Map myMap;
+	
+	return 0;
 }
