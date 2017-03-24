@@ -6,9 +6,10 @@
 int main()
 {
 	Map myMap;
-	int x = 3, y = 3;
+	/*int x = 3, y = 3;
 	char c = '@';
-	myMap.modifyMap( x, y, c);
+	myMap.modifyMap( x, y, c);*/
 	CoinManager myCoin(myMap);
+	myMap.printMap();
 	return 0;
 }

@@ -35,16 +35,15 @@ Map::Map()
 		mapMatrix[i] = new char[numColumns]; //Cada punter esta apuntant a una array dinamica de chars (coumnes)
 		for (int j = 0; j < numColumns; j++)
 		{
-			mapMatrix[i][j] = '*';
+			mapMatrix[i][j] = '.';
 		}
 	}
 };
 
 //x i y son la posicio del jugador, i element el char que ha de posar
-void Map::modifyMap(int &x, int &y, char &element)
+void Map::modifyMap(int &x, int &y, char element)
 {
 	mapMatrix[x][y] = element;
-	printMap();
 }
 
 void Map::printMap()
@@ -67,6 +66,11 @@ int Map::getRows()
 int Map::getColumns()
 {
 	return numColumns;
+}
+
+char Map::getCharMatrix(int &x, int &y)
+{
+	return mapMatrix[x][y];
 }
 
 void Map::deleteMatrix()
