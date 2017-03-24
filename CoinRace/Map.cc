@@ -22,17 +22,17 @@ Map::Map()
 
 	std::cout << "Introdueix un nivell:\n\n1.Facil\n2.Normal\n3.Dificil\n" << std::endl;
 	std::cin >> dificult;
-	row =  5 * static_cast<int>(dificult);
-	column = 5 * static_cast<int>(dificult) * 2;
+	numRows =  5 * static_cast<int>(dificult);
+	numColumns = 5 * static_cast<int>(dificult) * 2;
 
-	MapMatrix = new char*[row]; //Crea una array dinamica de punters a chars (filas)
+	mapMatrix = new char*[numRows]; //Crea una array dinamica de punters a chars (filas)
 
-	for (int i = 0; i < row; i++)
+	for (int i = 0; i < numRows; i++)
 	{
-		MapMatrix[i] = new char[column]; //Cada punter esta apuntant a una array dinamica de chars (coumnes)
-		for (int j = 0; j < column; j++)
+		mapMatrix[i] = new char[numColumns]; //Cada punter esta apuntant a una array dinamica de chars (coumnes)
+		for (int j = 0; j < numColumns; j++)
 		{
-			MapMatrix[i][j] = '*';
+			mapMatrix[i][j] = '*';
 			//std::cout << MapMatrix[i][j];
 		}
 		//std::cout << std::endl;
@@ -42,27 +42,36 @@ Map::Map()
 //x i y son la posicio del jugador, i element el char que ha de posar
 void Map::modifyMap(int &x, int &y, char &element)
 {
-	MapMatrix[x][y] = element;
+	mapMatrix[x][y] = element;
 }
 
 void Map::printMap()
 {
-	for (int i = 0; i < row; i++)
+	for (int i = 0; i < numRows; i++)
 	{
-		for (int j = 0; j < column; j++)
+		for (int j = 0; j < numColumns; j++)
 		{
-			std::cout << MapMatrix[i][j];
+			std::cout << mapMatrix[i][j];
 		}
 		std::cout << std::endl;
 	}
 }
 
-int Map::getRow()
+int Map::getRows()
 {
-	return row;
+	return numRows;
 }
 
-int Map::getColumn()
+int Map::getColumns()
 {
-	return column;
+	return numColumns;
+}
+
+void Map::deleteMatrix()
+{
+	for (int i = 0; i < numRows; i++)
+	{
+		delete[]mapMatrix[i];
+	}
+	delete[]mapMatrix;
 }
