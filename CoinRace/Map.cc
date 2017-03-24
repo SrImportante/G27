@@ -15,7 +15,10 @@ std::ostream& operator<< (std::ostream &os, const Map::Level &lvl)
 	switch (lvl) {
 	case Map::Level::EASY: return os << "easy";
 	case Map::Level::MEDIUM: return os << "medium";
-	case Map::Level::HARD: return os << "hard";	}}
+	case Map::Level::HARD: return os << "hard";
+	}
+}
+
 Map::Map()
 {
 	Level dificult;
@@ -33,9 +36,7 @@ Map::Map()
 		for (int j = 0; j < numColumns; j++)
 		{
 			mapMatrix[i][j] = '*';
-			//std::cout << MapMatrix[i][j];
 		}
-		//std::cout << std::endl;
 	}
 };
 
@@ -43,6 +44,7 @@ Map::Map()
 void Map::modifyMap(int &x, int &y, char &element)
 {
 	mapMatrix[x][y] = element;
+	printMap();
 }
 
 void Map::printMap()
