@@ -2,7 +2,7 @@ class Map
 {
 private:
 	enum class Level { EASY=1, MEDIUM, HARD };
-	char *MapMatrix; //ha d'estar en el heap (new)
+	char **MapMatrix; //Matriu dinàmica
 
 public:
 	//constructor

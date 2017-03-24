@@ -26,11 +26,12 @@ Map::Map()
 	
 	const int FILAS{ 5 * static_cast<int>(dificult) };
 	const int COLUM{ 5 * static_cast<int>(dificult) * 2 };
-	MapMatrix = new char[FILAS][COLUM];
+	MapMatrix = new char*[FILAS];
 
-	for (int i = 0; i < 5 * static_cast<int>(dificult); i++)
+	for (int i = 0; i < FILAS; i++)
 	{
-		for (int j = 0; j < 5 * static_cast<int>(dificult) * 2; j++)
+		MapMatrix[i] = new char[COLUM];
+		for (int j = 0; j < COLUM; j++)
 		{
 			MapMatrix[i][j] = '*';
 			std::cout << MapMatrix[i][j];
