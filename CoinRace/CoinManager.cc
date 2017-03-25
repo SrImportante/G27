@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include "Map.hh"
 #include "CoinManager.hh"
 
 CoinManager::CoinManager(Map &map2) :

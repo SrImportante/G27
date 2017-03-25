@@ -1,8 +1,5 @@
 #pragma once
-#include "Map.hh"
-#include "CoinManager.hh"
 #include "Input.hh"
-
 
 class Player
 {
@@ -12,6 +9,6 @@ private:
 	CoinManager coinManager;
 public:
 	Player(Map &map2, CoinManager &CManager);
-	void movePlayer(Input::key button);
+	void movePlayer(Input::Key button);
 	int getScore();
 };
