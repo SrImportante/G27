@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CoinManager.hh" />
+    <ClInclude Include="Input.hh" />
     <ClInclude Include="Map.hh" />
     <ClInclude Include="Player.hh" />
   </ItemGroup>

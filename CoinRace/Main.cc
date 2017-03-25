@@ -1,15 +1,17 @@
 #include <iostream>
 #include <stdio.h>
+#include <ctime>
 #include "Map.hh"
 #include "CoinManager.hh"
+#include "Player.hh"
 
 int main()
 {
+	srand(static_cast<unsigned>(time(nullptr)));
 	Map myMap;
-	/*int x = 3, y = 3;
-	char c = '@';
-	myMap.modifyMap( x, y, c);*/
 	CoinManager myCoin(myMap);
+	Player player(myMap, myCoin);
+	int maxCoin{ 50 };
 	myMap.printMap();
 	return 0;
 }

@@ -21,24 +21,23 @@ std::ostream& operator<< (std::ostream &os, const Map::Level &lvl)
 
 Map::Map()
 {
-	Level dificult;
-
 	std::cout << "Introdueix un nivell:\n\n1.Facil\n2.Normal\n3.Dificil\n" << std::endl;
-	std::cin >> dificult;
-	numRows =  5 * static_cast<int>(dificult);
-	numColumns = 5 * static_cast<int>(dificult) * 2;
+	std::cin >> difficulty;
+
+	numRows = 5 * static_cast<int>(difficulty);
+	numColumns = 5 * static_cast<int>(difficulty) * 2;
 
 	mapMatrix = new char*[numRows]; //Crea una array dinamica de punters a chars (filas)
 
-	for (int i = 0; i < numRows; i++)
+	for (int i{ 0 }; i < numRows; i++)
 	{
 		mapMatrix[i] = new char[numColumns]; //Cada punter esta apuntant a una array dinamica de chars (coumnes)
-		for (int j = 0; j < numColumns; j++)
+		for (int j{ 0 }; j < numColumns; j++)
 		{
 			mapMatrix[i][j] = '.';
 		}
 	}
-};
+}
 
 //x i y son la posicio del jugador, i element el char que ha de posar
 void Map::modifyMap(int &x, int &y, char element)
@@ -48,9 +47,9 @@ void Map::modifyMap(int &x, int &y, char element)
 
 void Map::printMap()
 {
-	for (int i = 0; i < numRows; i++)
+	for (int i{ 0 }; i < numRows; i++)
 	{
-		for (int j = 0; j < numColumns; j++)
+		for (int j{ 0 }; j < numColumns; j++)
 		{
 			std::cout << mapMatrix[i][j];
 		}
@@ -75,7 +74,7 @@ char Map::getCharMatrix(int &x, int &y)
 
 void Map::deleteMatrix()
 {
-	for (int i = 0; i < numRows; i++)
+	for (int i{ 0 }; i < numRows; i++)
 	{
 		delete[]mapMatrix[i];
 	}

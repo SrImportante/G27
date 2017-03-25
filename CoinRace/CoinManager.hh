@@ -5,8 +5,11 @@ class CoinManager
 {
 private:
 	int coins;
+	Map map;
 public:
-	CoinManager(Map& map);
-	void deleteCoin(int &x, int &y, Map& map);
-	void generateCoins(Map& map, int numCoins);
+	CoinManager(Map &map2);
+	void deleteCoin(int &x, int &y);
+	void generateCoins(int numCoins);
+	bool anyCoin();
+	void pickCoin();
 };

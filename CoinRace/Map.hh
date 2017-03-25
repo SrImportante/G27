@@ -3,6 +3,7 @@ class Map
 {
 private:
 	enum class Level { EASY=1, MEDIUM, HARD };
+	Level difficulty;
 	int numRows, numColumns;
 	char **mapMatrix; //Matriu dinàmica
 
