@@ -18,6 +18,7 @@ public:
 	int getColumns();
 	char getCharMatrix(int &x, int &y);
 	void deleteMatrix();
+	int getLevel();
 	friend std::istream& operator>> (std::istream &is, Level &lvl);
 	friend std::ostream& operator<< (std::ostream &os, const Level &lvl);
 };

@@ -13,15 +13,16 @@ std::istream& operator>> (std::istream &is, Map::Level &lvl)
 std::ostream& operator<< (std::ostream &os, const Map::Level &lvl) 
 {
 	switch (lvl) {
-	case Map::Level::EASY: return os << "easy";
-	case Map::Level::MEDIUM: return os << "medium";
-	case Map::Level::HARD: return os << "hard";
+	case Map::Level::EASY: return os << "Easy";
+	case Map::Level::MEDIUM: return os << "Medium";
+	case Map::Level::HARD: return os << "Hard";
 	}
 }
 
 Map::Map()
 {
-	std::cout << "Introdueix un nivell:\n\n1.Facil\n2.Normal\n3.Dificil\n" << std::endl;
+
+	std::cout << "\nChoose a difficulty:\n\n1 - EASY *\n2 - MEDIUM **\n3 - HARD ***\n" << std::endl;
 	std::cin >> difficulty;
 
 	numRows = 5 * static_cast<int>(difficulty);
@@ -79,4 +80,9 @@ void Map::deleteMatrix()
 		delete[]mapMatrix[i];
 	}
 	delete[]mapMatrix;
+}
+
+int Map::getLevel()
+{
+	return static_cast<int>(difficulty);
 }

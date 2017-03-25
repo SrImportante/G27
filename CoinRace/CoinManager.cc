@@ -8,7 +8,7 @@ CoinManager::CoinManager(Map &map2) :
 	coins((map2.getRows()*map2.getColumns()*(rand() % 11 + 3))/100) //No puedo poner map directamente, al debuggar se salta esta linea.
 {
 	int aux{ 0 }, x, y;
-	std::cout << coins << std::endl;
+	//std::cout << coins << std::endl;
 	do {
 		x = rand() % map.getRows();
 		y = rand() % map.getColumns();
