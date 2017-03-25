@@ -33,6 +33,8 @@ int main()
 		if (_kbhit())
 		{
 			keyPressed = Input::getKey();
+			if (keyPressed == Input::Key::ESC) // Sale del bucle si se pulsa ESC y termina la partida
+				break;
 			player.movePlayer(keyPressed);
 			system("cls");
 			myMap.printMap();
@@ -42,7 +44,7 @@ int main()
 
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	
-	std::cout << "\nYou have picked up " << maxCoin << " coins in " << duration << " seconds" << std::endl;
+	std::cout << "\nYou have picked up " << player.getScore() << " coins in " << duration << " seconds" << std::endl;
 	
 	_getch();
 	_getch();
