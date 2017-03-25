@@ -8,7 +8,6 @@ private:
 	Map map;
 public:
 	CoinManager(Map &map2);
-	void deleteCoin(int &x, int &y);
 	void generateCoins(int numCoins);
 	bool anyCoin();
 	void pickCoin();

@@ -19,11 +19,6 @@ CoinManager::CoinManager(Map &map2) :
 	} while (aux < coins);
 };
 
-void CoinManager::deleteCoin(int &x, int &y)
-{
-	map.modifyMap(x, y, '.');
-}
-
 void CoinManager::generateCoins(int numCoins)
 {
 	int aux{ 0 }, x, y;

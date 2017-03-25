@@ -13,4 +13,5 @@ private:
 public:
 	Player(Map &map2, CoinManager &CManager);
 	void movePlayer(Input::key button);
+	int getScore();
 };

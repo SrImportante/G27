@@ -28,17 +28,60 @@ void Player::movePlayer(Input::key button)
 		{
 			score++;
 			coinManager.pickCoin();
-			if (!coinManager.anyCoin())
-				coinManager.generateCoins((map.getRows()*map.getColumns()*(rand() % 11 + 3)) / 100);
 		}
 		map.modifyMap(x, y, '@');
-		//eliminar moneda
+		if (!coinManager.anyCoin())
+			coinManager.generateCoins((map.getRows()*map.getColumns()*(rand() % 11 + 3)) / 100);
 		break;
 	case Input::key::D:
+		if (y < map.getColumns() - 1)
+		{
+			map.modifyMap(x, y, '.');
+			y++;
+		}
+		if (map.getCharMatrix(x, y) == '$')
+		{
+			score++;
+			coinManager.pickCoin();
+		}
+		map.modifyMap(x, y, '@');
+		if (!coinManager.anyCoin())
+			coinManager.generateCoins((map.getRows()*map.getColumns()*(rand() % 11 + 3)) / 100);
 		break;
 	case Input::key::S:
+		if (x < map.getRows() - 1)
+		{
+			map.modifyMap(x, y, '.');
+			x++;
+		}
+		if (map.getCharMatrix(x, y) == '$')
+		{
+			score++;
+			coinManager.pickCoin();
+		}
+		map.modifyMap(x, y, '@');
+		if (!coinManager.anyCoin())
+			coinManager.generateCoins((map.getRows()*map.getColumns()*(rand() % 11 + 3)) / 100);
 		break;
 	case Input::key::W:
+		if (x > 0)
+		{
+			map.modifyMap(x, y, '.');
+			x--;
+		}
+		if (map.getCharMatrix(x, y) == '$')
+		{
+			score++;
+			coinManager.pickCoin();
+		}
+		map.modifyMap(x, y, '@');
+		if (!coinManager.anyCoin())
+			coinManager.generateCoins((map.getRows()*map.getColumns()*(rand() % 11 + 3)) / 100);
 		break;
 	}
+}
+
+int Player::getScore()
+{
+	return score;
 }
