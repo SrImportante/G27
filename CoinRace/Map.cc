@@ -52,7 +52,7 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 	{
 		for (int j{ 0 }; j < numColumns; j++)
 		{
-			std::cout << mapMatrix[i][j];
+			std::cout << mapMatrix[i][j] << " ";
 		}
 		std::cout << std::endl;
 	}
