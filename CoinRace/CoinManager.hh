@@ -4,9 +4,9 @@ class CoinManager
 {
 private:
 	int coins;
-	Map map;
+	Map *map; //Relació d'associació
 public:
-	CoinManager(Map &map2);
+	CoinManager(Map *map2);
 	void generateCoins(int numCoins);
 	bool anyCoin();
 	void pickCoin();
