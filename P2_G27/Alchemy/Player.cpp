@@ -24,6 +24,8 @@ public:
 	void deleteE(int a);
 	void addBasics();
 	void sort();
+	void clean();
+	void help();
 
 	Player() 
 	{
@@ -60,7 +62,7 @@ void Player::userInput()
 		}
 
 	//Eliminar un element
-		std::string deleteInput = "add";
+		std::string deleteInput = "delete";
 		if (input == deleteInput)
 		{
 			std::cin >> a;
@@ -75,10 +77,24 @@ void Player::userInput()
 		*/
 
 	//Ordena tots els elements per ordre alfabètic
-		std::string sortInput = "add";
+		std::string sortInput = "sort";
 		if (input == sortInput)
 		{
 			sort();
+		}
+
+	//Elimina elements repetits de la llista
+		std::string cleanInput = "clean";
+		if (input == cleanInput)
+		{
+			clean();
+		}
+
+	//Instruccions
+		std::string helpInput = "help";
+		if (input == helpInput)
+		{
+			help();
 		}
 
 	//Per la combinació d'elements
@@ -110,8 +126,37 @@ void Player::deleteE(int a)
 
 void Player::sort()
 {
-	
+	std::sort(elementsList.begin(), elementsList.end());
 }
+
+void Player::clean()
+{
+	for (int i = 0; i <= elementsList.size() - 1; i++)
+	{
+		for (int j = 0; j <= elementsList.size() - 1; j++)
+		{
+			if (elementsList.at(i) == elementsList.at(j))
+			{
+				elementsList.erase(elementsList.begin() + j - 1);
+			}
+		}
+	}
+}
+
+void Player::help()
+{
+	std::cout << "------------------\nFULLENTI ALCHEMIST\n------------------\n" 
+		<<"- Enter two numbers of your elements list to combine them.\n"
+		<<"- Enter the word 'add' and the number of an element to add a new instance of that element.\n"
+		<<"- Enter 'add basics' to add new instances of the 4 basic elements.\n"
+		<<"- Enter the word 'delete' and the number of an element to erase it from your list.\n"
+		<<"- Enter the word 'info' and the number of an element to get information about it in the explorer.\n"
+		<<"- Enter the word 'sort' to sort by alphabetical order the elements in the list.\n"
+		<<"- Enter the word 'clean' to delete all the instances of repeated elements.\n"
+		<<"- Enter the word 'help' to show this tutorial.\n" << std::endl;
+
+}
+
 
 void Player::combine(int a, int b)
 {
