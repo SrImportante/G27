@@ -4,33 +4,35 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
-
+#include "Elements.h"
 
 class Elements
 {
-public:
-	std::ifstream f_elemnts;
-	std::string line;
-	std::unordered_map<std::string, std::string> elementsMap;
-
+	
 	Elements()
 	{
-		std::f_elemnts.open("elements.dat");
-
-		while (std::getline(f_elemnts, line))
+		while (getline(elementsFile, line))
 		{
-			std::string mapKey;
-			std::string mapValor;
+			std::string elementResult = line.substr(0, line.find("=") - 1);
+			std::string elementFirst = line.substr(line.find("=") + 2, line.find("+") - line.find("=") - 3);
+			std::string elementSecond = line.substr(line.find("+") + 2, line.size());
 
-			mapValor = f_elemnts 
+			elementsMap.insert({ { elementFirst, elementSecond }, elementResult });
 
-			elementsMap[] = 
-
-
-
-		};
-
+			//std::cout << elementFirst << " + " << elementSecond << " = " << elementsMap[{elementFirst, elementSecond}] << std::endl;
+		}
 	};
+
+	void resultCombination(std::string element1, std::string element2)
+	{
+		for (int i = 0; elementsMap.begin(i) != elementsMap.end(); i++)
+		{
+
+		}
+		elementsMap.find({ element1, element2 });
+
+
+	}
 
 
 };
