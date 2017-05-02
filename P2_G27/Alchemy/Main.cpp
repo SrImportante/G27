@@ -16,8 +16,8 @@
 
 int main()
 {
-	Elements guide();
-	Player player();
+	Elements guide;
+	Player player(guide);
 
 	std::cout << "//////////////////////////" << std::endl;
 	std::cout << "FULLENTI ALCHEMIST" << std::endl;
@@ -31,8 +31,11 @@ int main()
 	std::cout << "- Enter the word 'clean' to delete all the instances of repeated elements." << std::endl;
 	std::cout << "- Enter the word 'help' to show this tutorial." << std::endl;
 	
-	std::cout << "\nYour current score:"<< player().score << std::endl;
+	std::cout << "\nYour current score:"<< player.score << std::endl;
 	
+	player.userInput();
+
+
 	system("cls");
 	return 0;
 }

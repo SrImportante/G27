@@ -1,22 +1,38 @@
-#pragma once
+/*#pragma once
 
-std::ifstream elementsFile("elements.dat");
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
 
-std::string line;
 
-struct coordinateHash
+class Elements
 {
-	size_t operator()(const std::pair<std::string, std::string> &c) const
+public:
+
+	
+	std::string line;
+
+	struct coordinateHash
 	{
-		return ((std::hash<std::string>()(c.first)
-			^ (std::hash<std::string>()(c.second)) << 1)) >> 1;
-	}
-};
+		size_t operator()(const std::pair<std::string, std::string> &c) const
+		{
+			return ((std::hash<std::string>()(c.first)
+				^ (std::hash<std::string>()(c.second)) << 1)) >> 1;
+		}
+	};
 
+	std::unordered_map<std::pair<std::string, std::string>, std::string, coordinateHash> elementsMap;
 
-std::unordered_map<std::pair<std::string, std::string>, std::string, coordinateHash> elementsMap;
-class Elements {
-	Elements();
+	Elements(void);
+
 	std::string resultCombination(std::string element1, std::string element2);
-};
+
+	
+
+};*/
+
+
 

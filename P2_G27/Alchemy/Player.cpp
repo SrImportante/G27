@@ -12,13 +12,14 @@
 
 #include <windows.h>
 
-Elements list;
-
 class Player
 {
 public:
+	Elements m_list;
 	int score;
 	std::vector<std::string> elementsList;
+
+	Player(Elements list);
 
 	void userInput();
 	void combine(int a, int b);
@@ -26,16 +27,25 @@ public:
 	void deleteE(int a);
 	void addBasics();
 	void sort();
+	void clean();
+	void showElementsList();
+	void help();
 
-	Player() 
-	{
-		elementsList.push_back("aire");
-		elementsList.push_back("fuego");
-		elementsList.push_back("tierra");
-		elementsList.push_back("agua");
-		score = 0;
-	}
+
 };
+
+
+Player::Player(Elements list)
+{
+	m_list = list;
+
+	elementsList.push_back("aire");
+	elementsList.push_back("fuego");
+	elementsList.push_back("tierra");
+	elementsList.push_back("agua");
+	score = 0;
+}
+
 
 void Player::userInput()
 {
@@ -111,7 +121,37 @@ void Player::deleteE(int a)
 void Player::sort()
 {
 	
+	std::sort(elementsList.begin(), elementsList.end());
+	
 }
+
+void Player::clean()
+ {
+	for (unsigned int i = 0; i <= elementsList.size() - 1; i++)
+		 {
+		for (unsigned int j = 0; j <= elementsList.size() - 1; j++)
+			 {
+			if (elementsList.at(i) == elementsList.at(j))
+				 {
+				elementsList.erase(elementsList.begin() + j - 1);
+				}
+			}
+		}
+}
+
+void Player::help()
+ {
+	std::cout << "------------------\nFULLENTI ALCHEMIST\n------------------\n"
+		 << "- Enter two numbers of your elements list to combine them.\n"
+		 << "- Enter the word 'add' and the number of an element to add a new instance of that element.\n"
+		 << "- Enter 'add basics' to add new instances of the 4 basic elements.\n"
+		 << "- Enter the word 'delete' and the number of an element to erase it from your list.\n"
+		 << "- Enter the word 'info' and the number of an element to get information about it in the explorer.\n"
+		 << "- Enter the word 'sort' to sort by alphabetical order the elements in the list.\n"
+		 << "- Enter the word 'clean' to delete all the instances of repeated elements.\n"
+		 << "- Enter the word 'help' to show this tutorial.\n" << std::endl;
+	
+		}
 
 void Player::combine(int a, int b)
 {
@@ -133,14 +173,18 @@ void Player::combine(int a, int b)
 	else
 		std::cout << "Error, There is no possible combination" << std::endl;
 
-	elementsList.push_back(list.resultCombination(element1, element2));
+	elementsList.push_back(m_list.resultCombination(element1, element2));
+	if (m_list.resultCombination(element1, element2) == "noElement")
+	{
+		elementsList.pop_back();
+	}
 	//sumar score
 }
 
 //Enseñar h
  void Player::showElementsList()
 {
-	for (std::vector<string>::iterator it = elementsList.begin(); it != elementsList.end(); ++it)
+	for (std::vector<std::string>::iterator it = elementsList.begin(); it != elementsList.end(); ++it)
 	{
 		std::cout << *it << std::endl;
 	}
