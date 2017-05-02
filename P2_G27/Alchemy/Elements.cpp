@@ -25,13 +25,27 @@ class Elements
 
 	void resultCombination(std::string element1, std::string element2)
 	{
-		for (int i = 0; elementsMap.begin(i) != elementsMap.end(); i++)
+		
+		if (elementsMap.find({ element1, element2 }) == elementsMap.end())
 		{
-
+			std::cout << "Error, There is no possible combination" << std::endl;
 		}
-		elementsMap.find({ element1, element2 });
 
+		else
+		{
+			//afegir al vector 
+		}
 
+		if (elementsMap.find({ element2, element1 }) == elementsMap.end())
+		{
+			std::cout << "Error, There is no possible combination" << std::endl;
+		}
+
+		else
+		{
+			//afegir al vector
+		}
+		
 	}
 
 
