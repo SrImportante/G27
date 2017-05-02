@@ -8,7 +8,6 @@
 
 class Elements
 {
-	
 	Elements()
 	{
 		while (getline(elementsFile, line))

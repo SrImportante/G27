@@ -10,6 +10,8 @@
 #include "Elements.h"
 #include "Player.h"
 
+#include <windows.h>
+
 Elements list;
 
 class Player
@@ -31,10 +33,8 @@ public:
 		elementsList.push_back("fuego");
 		elementsList.push_back("tierra");
 		elementsList.push_back("agua");
+		score = 0;
 	}
-
-
-
 };
 
 void Player::userInput()
@@ -69,9 +69,10 @@ void Player::userInput()
 
 	//Buscar infomació al Wikipedia
 		/*
-		
-					NI IDEA
-		
+		const char* urlB = "http://www.cplusplus.com/";
+		wchar_t urlW[ MAX_PATH ];
+		std::copy( urlB, urlB + lstrlenA( urlB ) + 1, urlW );
+		if ((int)ShellExecuteW( NULL, L"open", urlW, NULL, NULL, SW_SHOW ) < 32);
 		*/
 
 	//Ordena tots els elements per ordre alfabètic
@@ -87,7 +88,6 @@ void Player::userInput()
 			std::cin >> a >> b;
 			combine(a, b);
 		}
-
 }
 
 void Player::add(int a)
@@ -134,4 +134,14 @@ void Player::combine(int a, int b)
 		std::cout << "Error, There is no possible combination" << std::endl;
 
 	elementsList.push_back(list.resultCombination(element1, element2));
+	//sumar score
+}
+
+//Enseñar
+ void Player::showElementsList()
+{
+	for (std::vector<string>::iterator it = elementsList.begin(); it != elementsList.end(); ++it)
+	{
+		std::cout << *it << std::endl;
+	}
 }
