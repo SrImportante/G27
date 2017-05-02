@@ -19,35 +19,37 @@ class Elements
 
 			elementsMap.insert({ { elementFirst, elementSecond }, elementResult });
 
-			//std::cout << elementFirst << " + " << elementSecond << " = " << elementsMap[{elementFirst, elementSecond}] << std::endl;
 		}
 	};
 
-	void resultCombination(std::string element1, std::string element2)
-	{
-		
-		if (elementsMap.find({ element1, element2 }) == elementsMap.end())
-		{
-			std::cout << "Error, There is no possible combination" << std::endl;
-		}
-
-		else
-		{
-			//afegir al vector 
-		}
-
-		if (elementsMap.find({ element2, element1 }) == elementsMap.end())
-		{
-			std::cout << "Error, There is no possible combination" << std::endl;
-		}
-
-		else
-		{
-			//afegir al vector
-		}
-		
-	}
+public:
+	std::string resultCombination(std::string element1, std::string element2);
 
 
 };
+
+std::string Elements::resultCombination(std::string element1, std::string element2)
+{
+
+	if (elementsMap.find({ element1, element2 }) == elementsMap.end())
+	{
+		std::cout << "Error, There is no possible combination" << std::endl;
+	}
+
+	else
+	{
+		return elementsMap[{element1, element2}];
+	}
+
+	if (elementsMap.find({ element2, element1 }) == elementsMap.end())
+	{
+		std::cout << "Error, There is no possible combination" << std::endl;
+	}
+
+	else
+	{
+		return elementsMap[{element2, element1}];
+	}
+
+}
 	
