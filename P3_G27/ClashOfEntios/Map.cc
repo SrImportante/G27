@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include "Map.hh"
+#include "Renderer.hh"
 
 Map::Map()
 {
@@ -39,10 +40,24 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 	{
 		for (int j{ 0 }; j < numColumns - 1; j++)
 		{
-			std::cout << mapMatrix[i][j];
+			if (mapMatrix[i][j] == 'O')
+				enti::cout << enti::Color::LIGHTCYAN << mapMatrix[i][j] << " ";
+		
+			else if (mapMatrix[i][j] == 'X')
+				enti::cout << enti::Color::RED << mapMatrix[i][j] << " ";
+
+			else if (mapMatrix[i][j] == '.')
+				enti::cout << enti::Color::WHITE << mapMatrix[i][j] << " ";
+
+			else if (mapMatrix[i][j] == ':')
+				enti::cout << enti::Color::GREEN << mapMatrix[i][j] << " ";
+
+			else
+				enti::cout << enti::Color::YELLOW << mapMatrix[i][j] << " ";
 		}
-		std::cout << std::endl;
+		enti::cout << enti::endl;
 	}
+	enti::cout << enti::cend;
 }
 
 void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel·la en que es troba el jugador
