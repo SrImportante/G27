@@ -51,15 +51,37 @@ void Player::movePlayer(enti::InputKey button)
 	switch (button)
 	{
 	case enti::InputKey::A:
-		if (map->getCharMatrix(x, y - 1) != 'X' && map->getCharMatrix(x, y - 1) != 'O' && map->getCharMatrix(x, y - 1) != 'A' && map->getCharMatrix(x, y - 1) != 'B'
-			&& map->getCharMatrix(x, y - 1) != 'C' && map->getCharMatrix(x, y - 1) != 'D' && map->getCharMatrix(x, y - 1) != 'E' && map->getCharMatrix(x, y - 1) != 'F'
-			&& map->getCharMatrix(x, y - 1) != '1' && map->getCharMatrix(x, y - 1) != '2' && map->getCharMatrix(x, y - 1) != '2' && map->getCharMatrix(x, y - 1) != '3'
-			&& map->getCharMatrix(x, y - 1) != '4' && map->getCharMatrix(x, y - 1) != '5' && map->getCharMatrix(x, y - 1) != '6')
+		if (map->getCharMatrix(x, y - 1) == ':' || map->getCharMatrix(x, y - 1) == '.')
 		{
-			map->modifyMap(x, y, '.');
+			map->modifyMap(x, y, '.'); //Modificar segons . o :
 			y--;
 		}
 		map->modifyMap(x, y, pq.top().name);
+		break;
+	case enti::InputKey::D:
+		if (map->getCharMatrix(x, y + 1) == ':' || map->getCharMatrix(x, y + 1) == '.')
+		{
+			map->modifyMap(x, y, '.'); //Modificar segons . o :
+			y++;
+		}
+		map->modifyMap(x, y, pq.top().name);
+		break;
+	case enti::InputKey::S:
+		if (map->getCharMatrix(x + 1, y) == ':' || map->getCharMatrix(x + 1, y) == '.')
+		{
+			map->modifyMap(x, y, '.'); //Modificar segons . o :
+			x++;
+		}
+		map->modifyMap(x, y, pq.top().name);
+		break;
+	case enti::InputKey::W:
+		if (map->getCharMatrix(x - 1, y) == ':' || map->getCharMatrix(x - 1, y) == '.')
+		{
+			map->modifyMap(x, y, '.'); //Modificar segons . o :
+			x--;
+		}
+		map->modifyMap(x, y, pq.top().name);
+		break;
 		//addFatigue(pq.top().name, 1); // Afegir 1 de fatiga
 	}
 };
