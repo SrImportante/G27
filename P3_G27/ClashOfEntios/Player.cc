@@ -69,7 +69,7 @@ void Player::movePlayer(enti::InputKey button)
 	case enti::InputKey::S:
 		if (map->getCharMatrix(x + 1, y) == ':' || map->getCharMatrix(x + 1, y) == '.')
 		{
-			map->modifyMap(x, y, '.'); //Modificar segons . o :
+			map->modifyMap(x, y, '.'); //aA Modificar segons . o :
 			x++;
 		}
 		map->modifyMap(x, y, pq.top().name);
