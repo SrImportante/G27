@@ -9,7 +9,7 @@ namespace enti
 
 	static constexpr CharInfo EMPTY_CHAR{ L' ', static_cast<WORD>(Color::BLACK) };
 
-	Renderer::Renderer() : hConsole{ GetStdHandle(STD_OUTPUT_HANDLE) }, curRow{ 0 }, curCol{ 0 }, curColor{ Color::LIGHTGRAY }
+	Renderer::Renderer() : hConsole{ GetStdHandle(STD_OUTPUT_HANDLE) }, curRow { 0 }, curCol{ 0 }, curColor{ Color::LIGHTGRAY }
 	{
 		::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000); // Set fullscreen
 		CONSOLE_CURSOR_INFO cursorInfo;
@@ -29,7 +29,7 @@ namespace enti
 
 	Renderer::~Renderer() { delete[] data; }
 
-	inline void fill(CharInfo *first, const CharInfo *last, const CharInfo &value) { while (first != last) *first++ = value; }
+	inline void fill(CharInfo *first, const CharInfo *last, const CharInfo &value) {  while (first != last) *first++ = value; }
 
 	const R & operator<<(const R & r, const Endl & endl)
 	{
@@ -48,13 +48,13 @@ namespace enti
 		return r;
 	}
 
-#define SET_DATA(c) r.data[r.curRow*r.maxCols + r.curCol++] = { (c), static_cast<WORD>(r.curColor) }
-	const R & operator<<(const R & r, const Color &col) { r.curColor = col; return r; }
-	const R & operator<<(const R & r, Color && col) { r.curColor = std::move(col); return r; }
-	const R & operator<<(const R & r, const char &c) { SET_DATA(c); return r; }
-	const R & operator<<(const R & r, char && c) { SET_DATA(std::move(c)); return r; }
+	#define SET_DATA(c) r.data[r.curRow*r.maxCols + r.curCol++] = { (c), static_cast<WORD>(r.curColor) }
+	const R & operator<<(const R & r, const Color &col)		  { r.curColor = col; return r; }
+	const R & operator<<(const R & r, Color && col)			  { r.curColor = std::move(col); return r; }
+	const R & operator<<(const R & r, const char &c)		  { SET_DATA(c); return r; }
+	const R & operator<<(const R & r, char && c)			  { SET_DATA(std::move(c)); return r; }
 	const R & operator<<(const R & r, const std::string &str) { for (auto &c : str) SET_DATA(c); return r; }
-	const R & operator<<(const R & r, std::string && str) { for (auto &c : std::move(str)) SET_DATA(c); return r; }
-	const R & operator<<(const R & r, const char * str) { for (auto i = 0u; str[i] != '\0'; ++i) SET_DATA(str[i]); return r; }
-#undef SET
+	const R & operator<<(const R & r, std::string && str)	  { for (auto &c : std::move(str)) SET_DATA(c); return r; }
+	const R & operator<<(const R & r, const char * str)		  { for (auto i = 0u; str[i] != '\0'; ++i) SET_DATA(str[i]); return r; }
+	#undef SET
 }

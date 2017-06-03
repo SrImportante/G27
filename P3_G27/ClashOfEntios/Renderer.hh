@@ -52,7 +52,7 @@ namespace enti
 	extern const End cend;		// Ender object that tells when to write the buffer to the console
 
 	template<class T> inline const R &
-		operator<<(const R & r, const T & n) // Overloaded template for any integer or floating point number
+	operator<<(const R & r, const T & n) // Overloaded template for any integer or floating point number
 	{
 		static_assert(std::is_arithmetic<T>::value, "T must be a number, otherwise the operator must be overloaded");
 		for (auto &c : std::to_string(n)) r.data[r.curRow*r.maxCols + r.curCol++] = { c, static_cast<WORD>(r.curColor) };
