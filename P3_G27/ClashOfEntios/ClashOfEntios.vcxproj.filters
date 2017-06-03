@@ -18,12 +18,27 @@
     <ClCompile Include="Renderer.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -146,10 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="Map.cc" />
+    <ClCompile Include="Player.cc" />
     <ClCompile Include="Renderer.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.hh" />
+    <ClInclude Include="Map.hh" />
+    <ClInclude Include="Player.hh" />
     <ClInclude Include="Renderer.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
