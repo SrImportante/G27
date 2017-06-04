@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Map.hh"
 #include "Renderer.hh"
+#include "Player.hh"
 
 Map::Map()
 {
@@ -42,7 +43,7 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 		{
 			if (mapMatrix[i][j] == 'O')
 				enti::cout << enti::Color::LIGHTCYAN << mapMatrix[i][j] << " ";
-		
+
 			else if (mapMatrix[i][j] == 'X')
 				enti::cout << enti::Color::RED << mapMatrix[i][j] << " ";
 
@@ -53,11 +54,25 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 				enti::cout << enti::Color::GREEN << mapMatrix[i][j] << " ";
 
 			else
-				enti::cout << enti::Color::YELLOW << mapMatrix[i][j] << " ";
+				printMapPlayers(i, j);
 		}
 		enti::cout << enti::endl;
 	}
 	enti::cout << enti::cend;
+}
+
+//no em surt );
+void Map::printMapPlayers(int i, int j)
+{
+	if (magentaEntio)
+	{
+		enti::cout << enti::Color::LIGHTMAGENTA << mapMatrix[i][j] << " ";
+		magentaEntio = false;
+	}
+	else if (yellowEntio)
+		enti::cout << enti::Color::YELLOW << mapMatrix[i][j] << " ";
+	else
+		enti::cout << enti::Color::DARKGRAY << mapMatrix[i][j] << " ";
 }
 
 void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel·la en que es troba el jugador
