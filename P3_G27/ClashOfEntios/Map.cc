@@ -75,7 +75,7 @@ void Map::printMapPlayers(int i, int j)
 		enti::cout << enti::Color::DARKGRAY << mapMatrix[i][j] << " ";
 }
 
-void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel·la en que es troba el jugador
+void Map::modifyMap(int x, int y, char element) //canvia el caràcter de la cel·la en que es troba el jugador
 {
 	mapMatrix[x][y] = element;
 }

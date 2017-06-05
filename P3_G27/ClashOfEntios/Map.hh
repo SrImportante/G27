@@ -11,7 +11,7 @@ public:
 	Map(void);
 	void printMap();
 	void printMapPlayers(int i, int j);
-	void modifyMap(int &x, int &y, char element);
+	void modifyMap(int x, int y, char element);
 	int getX(char element);
 	int getY(char element);
 	char getCharMatrix(int x, int y); //funció per retornar el caràcter que es troba en la cel·la

@@ -18,7 +18,7 @@ int main()
 	bool turn1 = true;
 
 	enti::InputKey keyPressed;
-	while (!player1.allDead() || !player2.allDead()) 
+	while (!player1.allDead() && !player2.allDead()) 
 	{
 		if (_kbhit())
 		{
@@ -70,55 +70,91 @@ int main()
 				{
 					if (turn1)
 					{
-						player1.setActions(10);
+						player1.setActions(11);
 						player1.switchEntio();
 					}
 					else
 					{
-						player2.setActions(10);
+						player2.setActions(11);
 						player2.switchEntio();
 					}
 					turn1 = !turn1;	
 				}
 				break;
 			case enti::InputKey::SPACEBAR:
-
-				if (turn1 && player1.getActions() > 0)
+				system("cls");
+				myMap->printMap();
+				std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the weapon you want to choose: " << std::endl;
+				std::cout << /*enti::Color::YELLOW <<*/ "1 - SWORD \n2 - BOW" << std::endl; // << enti::cend;
+				if (turn1 && player1.getActions() > 0) // TORN JUGADOR 1
 				{
-					system("cls");
-					myMap->printMap();
-					std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the weapon you want to choose: " << std::endl;
-					enti::cout << enti::Color::YELLOW << "1 - SWORD \n2 - BOW" << enti::endl << enti::cend;
+					do // Espera a que es premi una tecla i sigui correcta
+					{
+						while (!_kbhit())
+						{
+						}
+						keyPressed = enti::getInputKey();
+					} while (keyPressed != enti::InputKey::NUM1 && keyPressed != enti::InputKey::NUM2);
 					if (keyPressed == enti::InputKey::NUM1)
 					{
 						system("cls");
 						myMap->printMap();
 						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
-						enti::cout << enti::Color::YELLOW << "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << enti::endl << enti::cend;
-						player1.playerAttackSword(keyPressed);
-					}
-					else if (keyPressed == enti::InputKey::NUM2)
+						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
+						do// Espera a que es premi una tecla i sigui correcta
+						{
+							while (!_kbhit()) 
+							{
+							}
+							keyPressed = enti::getInputKey();
+						}while (keyPressed != enti::InputKey::NUM1 && keyPressed != enti::InputKey::NUM2 && keyPressed != enti::InputKey::NUM3 && keyPressed != enti::InputKey::NUM4);
+						player1.playerAttackSword(keyPressed, turn1, player2);
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
+					}else if (keyPressed == enti::InputKey::NUM2)
 					{
-
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
+						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
+						//ARC
 					}
 				}
-				else if (!turn1 && player2.getActions() > 0)
+				else if (!turn1 && player2.getActions() > 0) // TORN JUGADOR 2
 				{
-					system("cls");
-					myMap->printMap();
-					std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the weapon you want to choose: " << std::endl;
-					enti::cout << enti::Color::YELLOW << "1 - SWORD \n2 - BOW" << enti::endl << enti::cend;
+					do // Espera a que es premi una tecla i sigui correcta
+					{
+						while (!_kbhit())
+						{
+						}
+						keyPressed = enti::getInputKey();
+					} while (keyPressed != enti::InputKey::NUM1 && keyPressed != enti::InputKey::NUM2);
 					if (keyPressed == enti::InputKey::NUM1)
 					{
 						system("cls");
 						myMap->printMap();
 						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
-						enti::cout << enti::Color::YELLOW << "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << enti::endl << enti::cend;
-						player2.playerAttackSword(keyPressed);
+						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; // << enti::cend;
+						do// Espera a que es premi una tecla i sigui correcta
+						{
+							while (!_kbhit())
+							{
+							}
+							keyPressed = enti::getInputKey();
+						} while (keyPressed != enti::InputKey::NUM1 && keyPressed != enti::InputKey::NUM2 && keyPressed != enti::InputKey::NUM3 && keyPressed != enti::InputKey::NUM4);
+						player2.playerAttackSword(keyPressed, turn1, player1);
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
 					}
 					else if (keyPressed == enti::InputKey::NUM2)
 					{
-
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
+						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
+						//ARC
 					}
 				}
 				else
