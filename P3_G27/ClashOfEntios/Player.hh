@@ -28,7 +28,7 @@ class Player
 {
 private:
 	Map *map;
-	int x, y, x2, y2, actions, entiosAlive,
+	int x, y, x2, y2, actions, entiosAlive;
 	bool canUndo;
 	std::priority_queue<Entio, std::vector<Entio>, Entio> pq;
 	//std::map<std::string, Entio> entios;

@@ -165,7 +165,7 @@ int main()
 						player2.playerAttackSword(keyPressed, turn1, player1);
 						system("cls");
 						myMap->printMap();
-						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player2.getActions() << std::endl;
 					}
 					else if (keyPressed == enti::InputKey::NUM2)
 					{
@@ -184,7 +184,7 @@ int main()
 						player2.playerAttackBow(keyPressed, turn1, player1);
 						system("cls");
 						myMap->printMap();
-						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player2.getActions() << std::endl;
 					}
 				}
 

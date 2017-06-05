@@ -46,10 +46,15 @@ Player::Player(Map *map2, int numPlayer)
 
 void Player::movePlayer(enti::InputKey button)
 {
+	while (entios[pq.top().name].life <= 0)
+	{
+		actions++;
+		switchEntio();
+	}
+
 	x = map->getX(pq.top().name);
 	y = map->getY(pq.top().name);
 	
-
 	switch (button)
 	{
 	case enti::InputKey::A: case enti::InputKey::a:
@@ -318,6 +323,10 @@ void Player::playerAttackBow(enti::InputKey button, bool turn1, Player &enemie)
 
 char Player::getEntio()
 {
+	while (entios[pq.top().name].life <= 0)
+	{
+		pq.pop();
+	}
 	return pq.top().name;
 }
 
@@ -354,7 +363,11 @@ void Player::switchEntio()
 	actions--;
 	char name = pq.top().name;
 	pq.pop();
-	pq.push(entios[name]);
+	if (entios[name].life > 0)
+	{
+		addFatigue(name, 1);
+		pq.push(entios[name]);
+	}
 }
 
 void Player::addFatigue(char name, int numF)
