@@ -31,6 +31,7 @@ public:
 	Player(Map *map2, int numPlayer);
 	void movePlayer(enti::InputKey button);
 	void playerAttackSword(enti::InputKey button, bool turn1, Player &enemie);
+	void playerAttackBow(enti::InputKey button, bool turn1, Player &enemie);
 	bool allDead();
 	void addFatigue(char name, int numF);
 	int getActions();

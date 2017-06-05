@@ -126,7 +126,17 @@ int main()
 						myMap->printMap();
 						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
 						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
-						//ARC
+						do// Espera a que es premi una tecla i sigui correcta
+						{
+							while (!_kbhit())
+							{
+							}
+							keyPressed = enti::getInputKey();
+						} while (keyPressed != enti::InputKey::NUM1 && keyPressed != enti::InputKey::NUM2 && keyPressed != enti::InputKey::NUM3 && keyPressed != enti::InputKey::NUM4);
+						player1.playerAttackBow(keyPressed, turn1, player2);
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
 					}
 				}
 				else if (!turn1 && player2.getActions() > 0) // TORN JUGADOR 2
@@ -162,7 +172,17 @@ int main()
 						myMap->printMap();
 						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
 						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
-						//ARC
+						do// Espera a que es premi una tecla i sigui correcta
+						{
+							while (!_kbhit())
+							{
+							}
+							keyPressed = enti::getInputKey();
+						} while (keyPressed != enti::InputKey::NUM1 && keyPressed != enti::InputKey::NUM2 && keyPressed != enti::InputKey::NUM3 && keyPressed != enti::InputKey::NUM4);
+						player2.playerAttackBow(keyPressed, turn1, player1);
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
 					}
 				}
 				else
