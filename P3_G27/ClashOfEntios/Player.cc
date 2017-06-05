@@ -4,22 +4,23 @@
 #include <queue>
 #include <vector>
 #include <map>
+#include <stack>
 
 Player::Player(Map *map2, int numPlayer)
 {
 	map = map2;
 	actions = 10;
+	canUndo = true;
+	arrowRange = 10;
 	entiosAlive = 6;
-	lastElement = '.';
-	//std::priority_queue<Entio, std::vector<Entio>, Entio> pq;
 	if (numPlayer == 1)
 	{
-		entios ['A'] = { 'A', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['B'] = { 'B', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['C'] = { 'C', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['D'] = { 'D', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['E'] = { 'E', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['F'] = { 'F', 0, 10, 10 }; // name, fatigue, life, arrow
+		entios ['A'] = { 'A', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['B'] = { 'B', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['C'] = { 'C', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['D'] = { 'D', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['E'] = { 'E', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['F'] = { 'F', 0, 10, 10, '.' }; // name, fatigue, life, arrow
 		pq.push(entios['A']);
 		pq.push(entios['B']);
 		pq.push(entios['C']);
@@ -29,12 +30,12 @@ Player::Player(Map *map2, int numPlayer)
 	}
 	else
 	{
-		entios ['1'] = { '1', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['2'] = { '2', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['3'] = { '3', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['4'] = { '4', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['5'] = { '5', 0, 10, 10 }; // name, fatigue, life, arrow
-		entios ['6'] = { '6', 0, 10, 10 }; // name, fatigue, life, arrow
+		entios ['1'] = { '1', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['2'] = { '2', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['3'] = { '3', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['4'] = { '4', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['5'] = { '5', 0, 10, 10, '.' }; // name, fatigue, life, arrow
+		entios ['6'] = { '6', 0, 10, 10, '.' }; // name, fatigue, life, arrow
 		pq.push(entios['1']);
 		pq.push(entios['2']);
 		pq.push(entios['3']);
@@ -49,190 +50,270 @@ void Player::movePlayer(enti::InputKey button)
 	x = map->getX(pq.top().name);
 	y = map->getY(pq.top().name);
 	colorControl();
-	
+
 	switch (button)
 	{
 	case enti::InputKey::A: case enti::InputKey::a:
 		if (map->getCharMatrix(x,y - 1) == ':' || map->getCharMatrix(x, y - 1) == '.')
 		{
-			map->modifyMap(x, y, lastElement); //Modificar segons . o :
-			lastElement = map->getCharMatrix(x, y - 1);
+			if (entios[pq.top().name].movement.size() == 0)
+			{
+				entios[pq.top().name].movement.push({ x, y });
+			}
+
+			map->modifyMap(x, y, entios[pq.top().name].lastElement); //Modificar segons . o :
+			entios[pq.top().name].lastElement = map->getCharMatrix(x, y - 1);
 			y--;
 			addFatigue(pq.top().name, 1); // Afegir 1 de fatiga
 			actions--;
+			map->modifyMap(x, y, pq.top().name);
+			canUndo = true;
+			entios[pq.top().name].movement.push({ x, y });
 		}
 		break;
 	case enti::InputKey::D: case enti::InputKey::d:
 		if (map->getCharMatrix(x, y + 1) == ':' || map->getCharMatrix(x, y + 1) == '.')
 		{
-			map->modifyMap(x, y, lastElement); //Modificar segons . o :
-			lastElement = map->getCharMatrix(x, y + 1);
+			if (entios[pq.top().name].movement.size() == 0)
+			{
+				entios[pq.top().name].movement.push({ x, y });
+			}
+
+			map->modifyMap(x, y, entios[pq.top().name].lastElement); //Modificar segons . o :
+			entios[pq.top().name].lastElement = map->getCharMatrix(x, y + 1);
 			y++;
 			addFatigue(pq.top().name, 1); // Afegir 1 de fatiga
 			actions--;
+			map->modifyMap(x, y, pq.top().name);
+			canUndo = true;
+			entios[pq.top().name].movement.push({ x, y });
 		}
 		break;
 	case enti::InputKey::S: case enti::InputKey::s:
 		if (map->getCharMatrix(x + 1, y) == ':' || map->getCharMatrix(x + 1, y) == '.')
 		{
-			map->modifyMap(x, y, lastElement); //Modificar segons . o :
-			lastElement = map->getCharMatrix(x + 1, y);
+			if (entios[pq.top().name].movement.size() == 0)
+			{
+				entios[pq.top().name].movement.push({ x, y });
+			}
+
+			map->modifyMap(x, y, entios[pq.top().name].lastElement); //Modificar segons . o :
+			entios[pq.top().name].lastElement = map->getCharMatrix(x + 1, y);
 			x++;
 			addFatigue(pq.top().name, 1); // Afegir 1 de fatiga
 			actions--;
+			map->modifyMap(x, y, pq.top().name);
+			canUndo = true;
+			entios[pq.top().name].movement.push({ x, y });
 		}
 		break;
 	case enti::InputKey::W: case enti::InputKey::w:
 		if (map->getCharMatrix(x - 1, y) == ':' || map->getCharMatrix(x - 1, y) == '.')
 		{
-			map->modifyMap(x, y, lastElement); //Modificar segons . o :
-			lastElement = map->getCharMatrix(x - 1, y);
+			if (entios[pq.top().name].movement.size() == 0)
+			{
+				entios[pq.top().name].movement.push({ x, y });
+			}
+
+			map->modifyMap(x, y, entios[pq.top().name].lastElement); //Modificar segons . o :
+			entios[pq.top().name].lastElement = map->getCharMatrix(x - 1, y);
 			x--;
 			addFatigue(pq.top().name, 1); // Afegir 1 de fatiga
 			actions--;
+			map->modifyMap(x, y, pq.top().name);
+			canUndo = true;
+			entios[pq.top().name].movement.push({ x, y });
 		}
 		break;
+	case enti::InputKey::Z: case enti::InputKey::z:
+		
+		undoMove(entios[pq.top().name].movement, entios[pq.top().name].lastElement, canUndo);
+		break;
 	}
-	map->modifyMap(x, y, pq.top().name);
+
 };
+
 
 void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie)
 {
+	while (entios[pq.top().name].life <= 0)
+	{
+		actions++;
+		switchEntio();
+	}
 	x = map->getX(pq.top().name);
 	y = map->getY(pq.top().name);
 	switch (button)
 	{
-		case enti::InputKey::NUM1: // UP
+	case enti::InputKey::NUM1: // UP
+	{
+		if (map->getCharMatrix(x - 1, y) == (turn1 ? '1' : 'A') || map->getCharMatrix(x - 1, y) == (turn1 ? '2' : 'B') || map->getCharMatrix(x - 1, y) == (turn1 ? '3' : 'C') ||
+			map->getCharMatrix(x - 1, y) == (turn1 ? '4' : 'D') || map->getCharMatrix(x - 1, y) == (turn1 ? '5' : 'E') || map->getCharMatrix(x - 1, y) == (turn1 ? '6' : 'F'))
 		{
-			if (turn1)
-			{
-				if (map->getCharMatrix(x - 1, y) == '1' || map->getCharMatrix(x - 1, y) == '2' || map->getCharMatrix(x - 1, y) == '3' || map->getCharMatrix(x - 1, y) == '4'
-					|| map->getCharMatrix(x - 1, y) == '5' || map->getCharMatrix(x - 1, y) == '6')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x - 1, y), 10);
-					map->modifyMap(x - 1, y, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			else
-			{
-				if (map->getCharMatrix(x - 1, y) == 'A' || map->getCharMatrix(x - 1, y) == 'B' || map->getCharMatrix(x - 1, y) == 'C' || map->getCharMatrix(x - 1, y) == 'D'
-					|| map->getCharMatrix(x - 1, y) == 'E' || map->getCharMatrix(x - 1, y) == 'F')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x - 1, y), 10);
-					map->modifyMap(x - 1, y, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			break;
+			enemie.entioLoseLife(map->getCharMatrix(x - 1, y), 10);
 		}
-		case enti::InputKey::NUM2: //LEFT
+		else
 		{
-			if (turn1)
-			{
-				if (map->getCharMatrix(x, y - 1) == '1' || map->getCharMatrix(x, y - 1) == '2' || map->getCharMatrix(x, y - 1) == '3' || map->getCharMatrix(x, y - 1) == '4'
-					|| map->getCharMatrix(x, y - 1) == '5' || map->getCharMatrix(x, y - 1) == '6')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x, y - 1), 10);
-					map->modifyMap(x, y - 1, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			else
-			{
-				if (map->getCharMatrix(x, y - 1) == 'A' || map->getCharMatrix(x, y - 1) == 'B' || map->getCharMatrix(x, y - 1) == 'C' || map->getCharMatrix(x, y - 1) == 'D'
-					|| map->getCharMatrix(x, y - 1) == 'E' || map->getCharMatrix(x, y - 1) == 'F')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x, y - 1), 10);
-					map->modifyMap(x, y - 1, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			break;
+			std::cout << "You failed" << std::endl;
+			_getch();
 		}
-		case enti::InputKey::NUM3: //DOWN
+		break;
+	}
+	case enti::InputKey::NUM2: //LEFT
+	{
+		if (map->getCharMatrix(x, y - 1) == (turn1 ? '1' : 'A') || map->getCharMatrix(x, y - 1) == (turn1 ? '2' : 'B') || map->getCharMatrix(x, y - 1) == (turn1 ? '3' : 'C') ||
+			map->getCharMatrix(x, y - 1) == (turn1 ? '4' : 'D') || map->getCharMatrix(x, y - 1) == (turn1 ? '5' : 'E') || map->getCharMatrix(x, y - 1) == (turn1 ? '6' : 'F'))
 		{
-			if (turn1)
-			{
-				if (map->getCharMatrix(x + 1, y) == '1' || map->getCharMatrix(x + 1, y) == '2' || map->getCharMatrix(x + 1, y) == '3' || map->getCharMatrix(x + 1, y) == '4'
-					|| map->getCharMatrix(x + 1, y) == '5' || map->getCharMatrix(x + 1, y) == '6')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x + 1, y), 10);
-					map->modifyMap(x + 1, y, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			else
-			{
-				if (map->getCharMatrix(x + 1, y) == 'A' || map->getCharMatrix(x + 1, y) == 'B' || map->getCharMatrix(x + 1, y) == 'C' || map->getCharMatrix(x + 1, y) == 'D'
-					|| map->getCharMatrix(x + 1, y) == 'E' || map->getCharMatrix(x + 1, y) == 'F')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x + 1, y), 10);
-					map->modifyMap(x + 1, y, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			break;
+			enemie.entioLoseLife(map->getCharMatrix(x, y - 1), 10);
 		}
-		case enti::InputKey::NUM4: //RIGHT
+		else
 		{
-			if (turn1)
-			{
-				if (map->getCharMatrix(x, y + 1) == '1' || map->getCharMatrix(x, y + 1) == '2' || map->getCharMatrix(x, y + 1) == '3' || map->getCharMatrix(x, y + 1) == '4'
-					|| map->getCharMatrix(x, y + 1) == '5' || map->getCharMatrix(x, y + 1) == '6')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x, y + 1), 10);
-					map->modifyMap(x, y + 1, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			else
-			{
-				if (map->getCharMatrix(x, y + 1) == 'A' || map->getCharMatrix(x, y + 1) == 'B' || map->getCharMatrix(x, y + 1) == 'C' || map->getCharMatrix(x, y + 1) == 'D'
-					|| map->getCharMatrix(x, y + 1) == 'E' || map->getCharMatrix(x, y + 1) == 'F')
-				{
-					enemie.entioLoseLife(map->getCharMatrix(x, y + 1), 10);
-					map->modifyMap(x, y + 1, '.');
-				}
-				else
-				{
-					std::cout << "You failed" << std::endl;
-					_getch();
-				}
-			}
-			break;
+			std::cout << "You failed" << std::endl;
+			_getch();
 		}
+		break;
+	}
+	case enti::InputKey::NUM3: //DOWN
+	{
+		if (map->getCharMatrix(x + 1, y) == (turn1 ? '1' : 'A') || map->getCharMatrix(x + 1, y) == (turn1 ? '2' : 'B') || map->getCharMatrix(x + 1, y) == (turn1 ? '3' : 'C') ||
+			map->getCharMatrix(x + 1, y) == (turn1 ? '4' : 'D') || map->getCharMatrix(x + 1, y) == (turn1 ? '5' : 'E') || map->getCharMatrix(x + 1, y) == (turn1 ? '6' : 'F'))
+		{
+			enemie.entioLoseLife(map->getCharMatrix(x + 1, y), 10);
+		}
+		else
+		{
+			std::cout << "You failed" << std::endl;
+			_getch();
+		}
+		break;
+	}
+	case enti::InputKey::NUM4: //RIGHT
+	{
+		if (map->getCharMatrix(x, y + 1) == (turn1 ? '1' : 'A') || map->getCharMatrix(x, y + 1) == (turn1 ? '2' : 'B') || map->getCharMatrix(x, y + 1) == (turn1 ? '3' : 'C') ||
+			map->getCharMatrix(x, y + 1) == (turn1 ? '4' : 'D') || map->getCharMatrix(x, y + 1) == (turn1 ? '5' : 'E') || map->getCharMatrix(x, y + 1) == (turn1 ? '6' : 'F'))
+		{
+			enemie.entioLoseLife(map->getCharMatrix(x, y + 1), 10);
+		}
+		else
+		{
+			std::cout << "You failed" << std::endl;
+			_getch();
+		}
+		break;
+	}
 	};
 	actions--;
 }
+
+void Player::playerAttackBow(enti::InputKey button, bool turn1, Player &enemie)
+{
+	while (entios[pq.top().name].life <= 0)
+	{
+		actions++;
+		switchEntio();
+	}
+	x = map->getX(pq.top().name);
+	y = map->getY(pq.top().name);
+	bool hit = false;
+
+	switch (button)
+	{
+	case enti::InputKey::NUM1: // UP
+	{
+		for (int i = 3; i < 11; i++)
+		{
+			if (map->getCharMatrix(x - i, y) == 'X')
+			{
+				break;
+			}
+			if (map->getCharMatrix(x - i, y) == (turn1 ? '1' : 'A') || map->getCharMatrix(x - i, y) == (turn1 ? '2' : 'B') || map->getCharMatrix(x - i, y) == (turn1 ? '3' : 'C') ||
+				map->getCharMatrix(x - i, y) == (turn1 ? '4' : 'D') || map->getCharMatrix(x - i, y) == (turn1 ? '5' : 'E') || map->getCharMatrix(x - i, y) == (turn1 ? '6' : 'F'))
+			{
+				enemie.entioLoseLife(map->getCharMatrix(x - i, y), 11 - i); // 11 - i és el dmg segons la distancia
+				hit = true;
+				break;
+			}
+		}
+		if (!hit)
+		{
+			std::cout << "You failed" << std::endl;
+			_getch();
+		}
+		break;
+	}
+	case enti::InputKey::NUM2: //LEFT
+	{
+		for (int i = 3; i < 11; i++)
+		{
+			if (map->getCharMatrix(x, y - i) == 'X')
+			{
+				break;
+			}
+			if (map->getCharMatrix(x, y - i) == (turn1 ? '1' : 'A') || map->getCharMatrix(x, y - i) == (turn1 ? '2' : 'B') || map->getCharMatrix(x, y - i) == (turn1 ? '3' : 'C') ||
+				map->getCharMatrix(x, y - i) == (turn1 ? '4' : 'D') || map->getCharMatrix(x, y - i) == (turn1 ? '5' : 'E') || map->getCharMatrix(x, y - i) == (turn1 ? '6' : 'F'))
+			{
+				enemie.entioLoseLife(map->getCharMatrix(x, y - i), 11 - i);
+				hit = true;
+				break;
+			}
+		}
+		if (!hit)
+		{
+			std::cout << "You failed" << std::endl;
+			_getch();
+		}
+		break;
+	}
+	case enti::InputKey::NUM3: //DOWN
+	{
+		for (int i = 3; i < 11; i++)
+		{
+			if (map->getCharMatrix(x + i, y) == 'X')
+			{
+				break;
+			}
+			if (map->getCharMatrix(x + i, y) == (turn1 ? '1' : 'A') || map->getCharMatrix(x + i, y) == (turn1 ? '2' : 'B') || map->getCharMatrix(x + i, y) == (turn1 ? '3' : 'C') ||
+				map->getCharMatrix(x + i, y) == (turn1 ? '4' : 'D') || map->getCharMatrix(x + i, y) == (turn1 ? '5' : 'E') || map->getCharMatrix(x + i, y) == (turn1 ? '6' : 'F'))
+			{
+				enemie.entioLoseLife(map->getCharMatrix(x + i, y), 11 - i);
+				hit = true;
+				break;
+			}
+		}
+		if (!hit)
+		{
+			std::cout << "You failed" << std::endl;
+			_getch();
+		}
+		break;
+	}
+	case enti::InputKey::NUM4: //RIGHT
+	{
+		for (int i = 3; i < 11; i++)
+		{
+			if (map->getCharMatrix(x, y + i) == 'X')
+			{
+				break;
+			}
+			if (map->getCharMatrix(x, y + i) == (turn1 ? '1' : 'A') || map->getCharMatrix(x, y + i) == (turn1 ? '2' : 'B') || map->getCharMatrix(x, y + i) == (turn1 ? '3' : 'C') ||
+				map->getCharMatrix(x, y + i) == (turn1 ? '4' : 'D') || map->getCharMatrix(x, y + i) == (turn1 ? '5' : 'E') || map->getCharMatrix(x, y + i) == (turn1 ? '6' : 'F'))
+			{
+				enemie.entioLoseLife(map->getCharMatrix(x, y + i), 11 - i);
+				hit = true;
+				break;
+			}
+		}
+		if (!hit)
+		{
+			std::cout << "You failed" << std::endl;
+			_getch();
+		}
+		break;
+	}
+	};
+	actions--;
+}
+
 
 char Player::getEntio()
 {
@@ -244,9 +325,10 @@ void Player::entioLoseLife(char name, int dmg)
 	entios[name].life = entios[name].life - dmg;
 	if (entios[name].life <= 0)
 	{
+		map->modifyMap(map->getX(name), map->getY(name), entios[name].lastElement);
 		entiosAlive--;
 	}
-	std::cout << "Entio " << entios[name].name << " te " << entios[name].life  << " vides" << std::endl;
+	std::cout << "Entio " << entios[name].name << " te " << entios[name].life << " vides" << std::endl;
 	_getch();
 }
 
@@ -254,6 +336,7 @@ bool Player::allDead()
 {
 	return entiosAlive == 0;
 };
+
 
 int Player::getActions()
 {
@@ -278,6 +361,11 @@ void Player::addFatigue(char name, int numF)
 	entios[name].fatigue += numF;
 }
 
+void Player::loseFatigue(char name, int numF)
+{
+	entios[name].fatigue -= numF;
+}
+
 void Player::colorControl()
 {
 	if (map->getCharMatrix(x, y) == pq.top().name)
@@ -285,3 +373,22 @@ void Player::colorControl()
 	else 
 		map->yellowEntio = true;
 }
+
+void Player::undoMove(std::stack<std::pair<int, int>> movement, char &element, bool &canUndo)
+{
+	if (canUndo)
+	{
+		map->modifyMap(movement.top().first, movement.top().second, element);
+		movement.pop();
+		element = map->getCharMatrix(movement.top().first, movement.top().second);
+		map->modifyMap(movement.top().first, movement.top().second, pq.top().name);
+		loseFatigue(pq.top().name, 1);		
+		actions++;
+	}
+
+	else
+		std::cout << "You only can undo one movement" << std::endl;
+
+	canUndo = false;
+}
+
