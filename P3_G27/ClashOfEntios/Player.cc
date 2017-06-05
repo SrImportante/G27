@@ -114,7 +114,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			else
@@ -127,7 +128,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			break;
@@ -144,7 +146,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			else
@@ -157,7 +160,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			break;
@@ -174,7 +178,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			else
@@ -187,7 +192,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			break;
@@ -204,7 +210,8 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			else
@@ -217,13 +224,19 @@ void Player::playerAttackSword(enti::InputKey button, bool turn1, Player &enemie
 				}
 				else
 				{
-					std::cout << "you failed" << std::endl;
+					std::cout << "You failed" << std::endl;
+					_getch();
 				}
 			}
 			break;
 		}
 	};
 	actions--;
+}
+
+char Player::getEntio()
+{
+	return pq.top().name;
 }
 
 void Player::entioLoseLife(char name, int dmg)
@@ -233,7 +246,7 @@ void Player::entioLoseLife(char name, int dmg)
 	{
 		entiosAlive--;
 	}
-	std::cout << "Entio " << entios[name].name << " te " << entios[name].life << std::endl;
+	std::cout << "Entio " << entios[name].name << " te " << entios[name].life  << " vides" << std::endl;
 	_getch();
 }
 

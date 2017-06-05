@@ -38,4 +38,5 @@ public:
 	void switchEntio();
 	void colorControl();
 	void entioLoseLife(char name, int dmg);
+	char getEntio();
 };

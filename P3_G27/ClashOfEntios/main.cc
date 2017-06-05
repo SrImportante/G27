@@ -58,6 +58,7 @@ int main()
 					system("cls");
 					myMap->printMap();
 					std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player1.getActions() << std::endl;
+					std::cout << "Torn de ' " << player1.getEntio() << " '"<< std::endl;
 				}
 				else if (!turn1 && player2.getActions() > 0)
 				{
@@ -65,6 +66,7 @@ int main()
 					system("cls");
 					myMap->printMap();
 					std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nActions: " << player2.getActions() << std::endl;
+					std::cout << "Torn de ' " << player2.getEntio() << " '" << std::endl;
 				}
 				else
 				{
@@ -72,11 +74,17 @@ int main()
 					{
 						player1.setActions(11);
 						player1.switchEntio();
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTorn de ' " << player2.getEntio() << " '" << std::endl;
 					}
 					else
 					{
 						player2.setActions(11);
 						player2.switchEntio();
+						system("cls");
+						myMap->printMap();
+						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTorn de ' " << player1.getEntio() << " '" << std::endl;
 					}
 					turn1 = !turn1;	
 				}
