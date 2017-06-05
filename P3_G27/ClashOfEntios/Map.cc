@@ -64,15 +64,7 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 //no em surt );
 void Map::printMapPlayers(int i, int j)
 {
-	if (magentaEntio)
-	{
-		enti::cout << enti::Color::LIGHTMAGENTA << mapMatrix[i][j] << " ";
-		magentaEntio = false;
-	}
-	else if (yellowEntio)
 		enti::cout << enti::Color::YELLOW << mapMatrix[i][j] << " ";
-	else
-		enti::cout << enti::Color::DARKGRAY << mapMatrix[i][j] << " ";
 }
 
 void Map::modifyMap(int x, int y, char element) //canvia el caràcter de la cel·la en que es troba el jugador

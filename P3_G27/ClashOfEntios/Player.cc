@@ -11,7 +11,6 @@ Player::Player(Map *map2, int numPlayer)
 	map = map2;
 	actions = 10;
 	canUndo = true;
-	arrowRange = 10;
 	entiosAlive = 6;
 	if (numPlayer == 1)
 	{
@@ -370,10 +369,7 @@ void Player::loseFatigue(char name, int numF)
 
 void Player::colorControl(int x, int y)
 {
-	if (map->getCharMatrix(x, y) == pq.top().name)
-		map->magentaEntio = true;
-	else 
-		map->yellowEntio = true;
+	
 }
 
 void Player::undoMove(std::stack<std::pair<int, int>> movement, char &element, bool &canUndo)
