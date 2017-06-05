@@ -8,10 +8,12 @@
 
 Player::Player(Map *map2, int numPlayer)
 {
+	//map per guardar els entios amb el seu char com a key
 	map = map2;
 	actions = 10;
 	canUndo = true;
 	entiosAlive = 6;
+
 	if (numPlayer == 1)
 	{
 		entios ['A'] = { 'A', 0, 10, 10, '.' }; // name, fatigue, life, arrow
@@ -46,33 +48,37 @@ Player::Player(Map *map2, int numPlayer)
 
 void Player::movePlayer(enti::InputKey button)
 {
+	//comprova que estigui viu
 	while (entios[pq.top().name].life <= 0)
 	{
 		actions++;
 		switchEntio();
 	}
 
+	//obtenir la x i la y del entio
 	x = map->getX(pq.top().name);
 	y = map->getY(pq.top().name);
+	
 	
 	switch (button)
 	{
 	case enti::InputKey::A: case enti::InputKey::a:
 		if (map->getCharMatrix(x,y - 1) == ':' || map->getCharMatrix(x, y - 1) == '.')
 		{
+			//coloca en el stack la posició inicial del entio
 			if (entios[pq.top().name].movement.size() == 0)
 			{
 				entios[pq.top().name].movement.push({ x, y });
 			}
 
-			map->modifyMap(x, y, entios[pq.top().name].lastElement); //Modificar segons . o :
-			entios[pq.top().name].lastElement = map->getCharMatrix(x, y - 1);
+			map->modifyMap(x, y, entios[pq.top().name].lastElement); //coloca el element que hi havia anteriorment en el terreny
+			entios[pq.top().name].lastElement = map->getCharMatrix(x, y - 1); //agafa el element que hi ha en la posició on es mourà
 			y--;
 			addFatigue(pq.top().name, 1); // Afegir 1 de fatiga
 			actions--;
-			map->modifyMap(x, y, pq.top().name);
+			map->modifyMap(x, y, pq.top().name);//coloca el entio en la posició on s'ha mogut
 			canUndo = true;
-			entios[pq.top().name].movement.push({ x, y });
+			entios[pq.top().name].movement.push({ x, y });//guarda el moviment al stack
 		}
 		break;
 	case enti::InputKey::D: case enti::InputKey::d:
@@ -335,7 +341,7 @@ void Player::entioLoseLife(char name, int dmg)
 	entios[name].life = entios[name].life - dmg;
 	if (entios[name].life <= 0)
 	{
-		map->modifyMap(map->getX(name), map->getY(name), entios[name].lastElement);
+		map->modifyMap(map->getX(name), map->getY(name), entios[name].lastElement);//coloca el element que hi havia anteriormen en la posició del player mort
 		entiosAlive--;
 	}
 	std::cout << "Entio " << entios[name].name << " te " << entios[name].life << " vides" << std::endl;
@@ -387,6 +393,7 @@ void Player::colorControl(int x, int y)
 
 void Player::undoMove(std::stack<std::pair<int, int>> movement, char &element, bool &canUndo)
 {
+	//Hem creat un stack per guardar els moviments per si es pot fer "Z" més d'un cop, però com que a les especificacions posa que només un moviment ho hem limit amb un boolean
 	if (canUndo)
 	{
 		map->modifyMap(movement.top().first, movement.top().second, element);
