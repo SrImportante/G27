@@ -46,7 +46,7 @@ public:
 	int getActions();
 	void setActions(int num);
 	void switchEntio();
-	void colorControl();
+	void colorControl(int x, int y);
 	void entioLoseLife(char name, int dmg);
 	char getEntio();
 	void undoMove(std::stack<std::pair<int, int>> movement, char &element, bool &canUndo);

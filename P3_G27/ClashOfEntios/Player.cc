@@ -49,7 +49,7 @@ void Player::movePlayer(enti::InputKey button)
 {
 	x = map->getX(pq.top().name);
 	y = map->getY(pq.top().name);
-	colorControl();
+	
 
 	switch (button)
 	{
@@ -130,6 +130,8 @@ void Player::movePlayer(enti::InputKey button)
 		undoMove(entios[pq.top().name].movement, entios[pq.top().name].lastElement, canUndo);
 		break;
 	}
+
+	colorControl(x, y);
 
 };
 
@@ -366,7 +368,7 @@ void Player::loseFatigue(char name, int numF)
 	entios[name].fatigue -= numF;
 }
 
-void Player::colorControl()
+void Player::colorControl(int x, int y)
 {
 	if (map->getCharMatrix(x, y) == pq.top().name)
 		map->magentaEntio = true;

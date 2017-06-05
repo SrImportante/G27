@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "Map.hh"
 #include "Renderer.hh"
-#include "Player.hh"
+
 
 Map::Map()
 {
