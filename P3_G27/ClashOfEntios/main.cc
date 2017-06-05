@@ -126,7 +126,6 @@ int main()
 						myMap->printMap();
 						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
 						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
-						//ARC
 						do// Espera a que es premi una tecla i sigui correcta
 						{
 							while (!_kbhit())
@@ -172,8 +171,7 @@ int main()
 						system("cls");
 						myMap->printMap();
 						std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnter the direction to attack: " << std::endl;
-						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;
-																														 //ARC
+						std::cout << /*enti::Color::YELLOW <<*/ "1 - UP \n2 - LEFT \n3 - DOWN \n4 - RIGHT" << std::endl; //<< enti::cend;											
 						do// Espera a que es premi una tecla i sigui correcta
 						{
 							while (!_kbhit())
