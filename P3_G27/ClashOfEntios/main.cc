@@ -195,9 +195,7 @@ int main()
 				}
 				break;
 			case enti::InputKey::ESC:
-				system("cls");
-				myMap->printMap();
-				std::cout << "ESC: " << std::endl;
+				return 0;
 				break;
 			default:
 				break;
