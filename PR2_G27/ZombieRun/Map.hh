@@ -30,8 +30,10 @@ private:
 public:
 	Map();
 	void printMap();
+	void modifyMap(int &x, int &y, char element);
+	char getCharMatrix(int &x, int &y);
 	void createZombie();
-	void killZombie();
+	void killZombie(char letter);
 	void zombiesComing();
 	bool zombiesWin();
 	friend std::istream& operator >> (std::istream &is, Level &lvl);

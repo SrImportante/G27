@@ -66,9 +66,22 @@ void Map::createZombie()
 
 }
 
-void Map::killZombie()
+void Map::killZombie(char letter)
 {
+	
+	if (zombies.find.first(letter))
+	{
+		modifyMap(zombies.find.first(letter).x, zombies.find.first(letter).y, '.');
+		zombies.erase(zombies.find.first(letter));
+	}
 
+	if (zombies.find.second(letter))
+	{
+		modifyMap(zombies.find.second(letter).x, zombies.find.second(letter).y, '.');
+		zombies.erase(zombies.find.second(letter));
+	}
+
+	
 }
 
 void Map::zombiesComing()//no acava de funcionar
@@ -78,30 +91,45 @@ void Map::zombiesComing()//no acava de funcionar
 		{
 			if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + 1000)
 			{
-				for (int i{ 0 }; i < numRows - 1; i++)
+				for (int i{ 0 }; i < numRows - numRows+1; i++)
 				{
 					system("cls");
 					printMap();
-
+					if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + 1000)
+					{
 					for (int j{ 0 }; j < numColumns; j++)
 					{
 						mapMatrix[i + 1][j] = mapMatrix[i][j];
 						mapMatrix[i][j] = '.';
 						timeCounter = clock() / (CLOCKS_PER_SEC / 1000);
 					}
+					}
 					
 				}
-				createZombie();
-
-				
-			
+				createZombie();		
 		}
 	}
 }
 
+void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel·la en que es troba el jugador
+{
+	mapMatrix[x][y] = element;
+}
+
+char Map::getCharMatrix(int &x, int &y) //funció per retornar el caràcter que es troba en la cel·la
+{
+	return mapMatrix[x][y];
+}
+
 bool Map::zombiesWin()
 {
-	return false;
+	for (int i = 0; i < numColumns; i++)
+	{
+		if (getCharMatrix(numColumns, i) != '.')
+			return true;
+		else
+			return false;
+	}
 }
 
 Map::~Map()
