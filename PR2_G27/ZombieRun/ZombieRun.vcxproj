@@ -24,6 +24,7 @@
     <ClCompile Include="Player.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Input.inl.hh" />
     <ClInclude Include="Map.hh" />
     <ClInclude Include="Player.hh" />
   </ItemGroup>

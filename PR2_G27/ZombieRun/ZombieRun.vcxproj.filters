@@ -32,5 +32,8 @@
     <ClInclude Include="Player.hh">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Input.inl.hh">
+      <Filter>Archivos de código fuente</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
