@@ -1,8 +1,6 @@
 #pragma once
 #include <unordered_map>
 
-
-
 /*struct coordinateHash
 {
 	size_t operator()(const std::pair<char, int> &c) const

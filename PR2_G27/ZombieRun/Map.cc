@@ -59,7 +59,7 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 
 void Map::createZombie()
 {
-	zombie randomZombie{ (rand() % 91) + 65, rand() % (numColumns + 1), 0};//no se perque no fa que només siguin vocals
+	zombie randomZombie{ 65 + rand() % (91 - 65), rand() % (numColumns + 1), 0};//no se perque no fa que només siguin vocals
 
 	zombies.insert({randomZombie.name + 32, randomZombie });
 	mapMatrix[randomZombie.y][randomZombie.x] = randomZombie.name;
