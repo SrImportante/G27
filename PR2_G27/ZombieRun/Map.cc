@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <map>
 #include <ctime>
 
 #include "Map.hh"
@@ -26,12 +27,11 @@ std::ostream& operator<< (std::ostream &os, const Map::Level &lvl)
 
 Map::Map()
 {
-
 	std::cout << "\nChoose a difficulty:\n\n1 - EASY *\n2 - MEDIUM **\n3 - HARD ***\n" << std::endl;
 	std::cin >> difficulty; //el jugador introdueix la dificultat
 
-	numRows = 30 - 5* static_cast<int>(difficulty); //crea nombre de files i columnes segons la dificultat escollida
-	numColumns = 9 + 5* static_cast<int>(difficulty) * 2;
+	numRows = (30 - 7 * static_cast<int>(difficulty)) + rand() % (31 - 5 * static_cast<int>(difficulty) - (30 - 7 * static_cast<int>(difficulty))); //crea nombre de files i columnes segons la dificultat escollida
+	numColumns = (9 + 5 * static_cast<int>(difficulty)) + rand() % (10 + 7 * static_cast<int>(difficulty) - (9 + 5 * static_cast<int>(difficulty)));
 
 	mapMatrix = new char*[numRows]; //Crea una array dinamica de punters a chars (filas)
 
@@ -61,7 +61,7 @@ void Map::createZombie()
 {
 	zombie randomZombie{ (rand() % 91) + 65, rand() % (numColumns + 1), 0};//no se perque no fa que només siguin vocals
 
-	zombies.insert({ {randomZombie.name, randomZombie.name + 32}, randomZombie});
+	zombies.insert({randomZombie.name + 32, randomZombie });
 	mapMatrix[randomZombie.y][randomZombie.x] = randomZombie.name;
 
 }
@@ -69,18 +69,11 @@ void Map::createZombie()
 void Map::killZombie(char letter)
 {
 	
-	if (zombies.find.first(letter))
+	/*if (zombies.find(letter))
 	{
 		modifyMap(zombies.find.first(letter).x, zombies.find.first(letter).y, '.');
 		zombies.erase(zombies.find.first(letter));
-	}
-
-	if (zombies.find.second(letter))
-	{
-		modifyMap(zombies.find.second(letter).x, zombies.find.second(letter).y, '.');
-		zombies.erase(zombies.find.second(letter));
-	}
-
+	}*/
 	
 }
 
@@ -108,7 +101,8 @@ void Map::zombiesComing()//no acava de funcionar
 				}
 				createZombie();		
 		}
-	}
+	}
+
 }
 
 void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel·la en que es troba el jugador

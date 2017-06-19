@@ -2,14 +2,15 @@
 #include <unordered_map>
 
 
-struct coordinateHash
+
+/*struct coordinateHash
 {
-	size_t operator()(const std::pair<char, char> &c) const
+	size_t operator()(const std::pair<char, int> &c) const
 	{
 		return ((std::hash<char>()(c.first)
-			^ (std::hash<char>()(c.second)) << 1)) >> 1;
+			^ (std::hash<int>()(c.second) << 1)) >> 1);
 	}
-};
+};*/
 
 struct zombie
 {
@@ -25,8 +26,9 @@ private:
 	Level difficulty;
 	int numRows, numColumns;
 	char **mapMatrix;
-	std::unordered_map < std::pair<char, char>, zombie, coordinateHash> zombies;
+	std::unordered_map < char, zombie> zombies;
 	int zombiesKilled;
+	int numZombie;
 public:
 	Map();
 	void printMap();
