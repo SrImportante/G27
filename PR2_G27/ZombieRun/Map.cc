@@ -24,7 +24,7 @@ std::ostream& operator<< (std::ostream &os, const Map::Level &lvl)
 Map::Map()
 {
 	std::cout << "\nChoose a difficulty:\n\n1 - EASY *\n2 - MEDIUM **\n3 - HARD ***\n" << std::endl;
-	std::cin >> difficulty; //el jugador introdueix la dificultat
+	std::cin >> difficulty; //el jugador introdueix la dificultata
 
 	numRows = (30 - 7 * static_cast<int>(difficulty)) + rand() % (31 - 5 * static_cast<int>(difficulty) - (30 - 7 * static_cast<int>(difficulty))); //crea nombre de files i columnes segons la dificultat escollida
 	numColumns = (9 + 5 * static_cast<int>(difficulty)) + rand() % (10 + 7 * static_cast<int>(difficulty) - (9 + 5 * static_cast<int>(difficulty)));
