@@ -39,7 +39,7 @@ void Map::createZombie(int num)
 	for (int i = 0; i < num; i++)
 	{
 		zombie randomZombie{ 65 + rand() % (91 - 65), 0, rand() % (numColumns + 1) };
-		while (getCharMatrix(0, randomZombie.y) != '.')
+		while (getCharMatrix(0, randomZombie.y) != '.') // vigila que no crei zombies en el mateix lloc
 		{
 			randomZombie.y = rand() % (numColumns + 1);
 		}
