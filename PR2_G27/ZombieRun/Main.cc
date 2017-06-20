@@ -31,7 +31,7 @@ int main()
 			keyPressed = enti::getInputKey();
 			player.playerClick(keyPressed);
 		}
-		if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + 1000)
+		if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + (400 * difficulty) + rand() % (2001 - 400 * difficulty))
 		{
 			myMap->moveZombies();
 			myMap->createZombie(1 * difficulty + (level - 1));
@@ -45,7 +45,7 @@ int main()
 	}
 	system("cls");
 	myMap->printMap();
-	std::cout << "############## Puntuacio Final: " << player.getScore() << " ##############" << std::endl;
+	std::cout << "#### Puntuacio Final: " << player.getScore() << " ####" << std::endl;
 
 	_getch();
 	_getch();
