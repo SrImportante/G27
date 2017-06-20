@@ -2,9 +2,7 @@
 #include <stdio.h>
 #include <map>
 #include <ctime>
-
 #include "Map.hh"
-
 
 std::istream& operator >> (std::istream &is, Map::Level &lvl)
 {
@@ -22,8 +20,6 @@ std::ostream& operator<< (std::ostream &os, const Map::Level &lvl)
 	case Map::Level::HARD: return os << "Hard";
 	}
 }
-
-
 
 Map::Map()
 {
@@ -57,13 +53,18 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 	}
 }
 
-void Map::createZombie()
+void Map::createZombie(int num)
 {
-	zombie randomZombie{ 65 + rand() % (91 - 65), rand() % (numColumns + 1), 0};//no se perque no fa que només siguin vocals
-
-	zombies.insert({randomZombie.name + 32, randomZombie });
-	mapMatrix[randomZombie.y][randomZombie.x] = randomZombie.name;
-
+	for (int i = 0; i < num; i++)
+	{
+		zombie randomZombie{ 65 + rand() % (91 - 65), 0, rand() % (numColumns + 1) };
+		while (getCharMatrix(0, randomZombie.y) != '.')
+		{
+			randomZombie.y = rand() % (numColumns + 1);
+		}
+		//zombies.insert({ randomZombie.name + 32, randomZombie }); // Afegir a la STL
+		mapMatrix[randomZombie.x][randomZombie.y] = randomZombie.name;
+	}
 }
 
 void Map::killZombie(char letter)
@@ -77,32 +78,27 @@ void Map::killZombie(char letter)
 	
 }
 
-void Map::zombiesComing()//no acava de funcionar
+void Map::moveZombies()
 {
-	clock_t timeCounter = 0; // clock tick timer
-		while (true)
+	char** auxMapMatrix;
+	auxMapMatrix = new char*[numRows];
+	for (int i{ 0 }; i < numRows; i++)
+	{
+		auxMapMatrix[i] = new char[numColumns];
+		for (int j{ 0 }; j < numColumns; j++)
 		{
-			if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + 1000)
-			{
-				for (int i{ 0 }; i < numRows - numRows+1; i++)
-				{
-					system("cls");
-					printMap();
-					if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + 1000)
-					{
-					for (int j{ 0 }; j < numColumns; j++)
-					{
-						mapMatrix[i + 1][j] = mapMatrix[i][j];
-						mapMatrix[i][j] = '.';
-						timeCounter = clock() / (CLOCKS_PER_SEC / 1000);
-					}
-					}
-					
-				}
-				createZombie();		
+			auxMapMatrix[i][j] = mapMatrix[i][j];
 		}
 	}
 
+	for (int i{ numRows - 1 }; i > 0 ; i--)
+	{
+		for (int j{ 0 }; j < numColumns; j++)
+		{
+			mapMatrix[i][j] = auxMapMatrix[i-1][j];
+			mapMatrix[i - 1][j] = '.';
+		}
+	}
 }
 
 void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel·la en que es troba el jugador
@@ -110,7 +106,7 @@ void Map::modifyMap(int &x, int &y, char element) //canvia el caràcter de la cel
 	mapMatrix[x][y] = element;
 }
 
-char Map::getCharMatrix(int &x, int &y) //funció per retornar el caràcter que es troba en la cel·la
+char Map::getCharMatrix(int x, int y) //funció per retornar el caràcter que es troba en la cel·la
 {
 	return mapMatrix[x][y];
 }

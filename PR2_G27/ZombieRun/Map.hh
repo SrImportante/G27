@@ -24,18 +24,18 @@ private:
 	Level difficulty;
 	int numRows, numColumns;
 	char **mapMatrix;
-	std::unordered_map < char, zombie> zombies;
+	std::unordered_map <char, zombie> zombies;
 	int zombiesKilled;
 	int numZombie;
 public:
 	Map();
 	void printMap();
 	void modifyMap(int &x, int &y, char element);
-	char getCharMatrix(int &x, int &y);
-	void createZombie();
+	char getCharMatrix(int x, int y);
+	void createZombie(int num);
 	void killZombie(char letter);
-	void zombiesComing();
 	bool zombiesWin();
+	void moveZombies();
 	friend std::istream& operator >> (std::istream &is, Level &lvl);
 	friend std::ostream& operator<< (std::ostream &os, const Level &lvl);
 	~Map();

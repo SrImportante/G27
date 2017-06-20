@@ -15,11 +15,20 @@ int main()
 	srand(time(NULL));
 
 	Map *myMap = new Map();
-	system("cls");
 	clock_t timeCounter = 0; // clock tick timer
 
-	myMap->zombiesComing();
-
+	while (true)
+	{
+		if (clock() / (CLOCKS_PER_SEC / 1000) > timeCounter + 1000)
+		{
+			system("cls");
+			myMap->printMap();
+			myMap->moveZombies();
+			myMap->createZombie(4);
+			timeCounter = clock() / (CLOCKS_PER_SEC / 1000);
+			std::cout << timeCounter << std::endl;
+		}
+	}
 
 	_getch();
 	_getch();
