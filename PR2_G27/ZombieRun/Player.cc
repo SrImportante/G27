@@ -4,15 +4,20 @@
 #include "Input.inl.hh"
 
 
-Player::Player(Map *map2)
+Player::Player(Map *map2) :
+	map(map2),
+	score(0)
 {
-	map = map2;
+};
+
+void Player::playerClick(enti::InputKey button)
+{
+	score += map->killZombies(static_cast<char>(button));
 }
 
-void Player::play(enti::InputKey button)
+int Player::getScore()
 {
-	char letter = static_cast<char>(button);
-	map->killZombie(letter);
+	return score;
 }
 
 Player::~Player()

@@ -1,33 +1,12 @@
 #include <iostream>
 #include <stdio.h>
-#include <map>
 #include <ctime>
 #include "Map.hh"
 
-std::istream& operator >> (std::istream &is, Map::Level &lvl)
+Map::Map(int difficulty)
 {
-	int intVal;
-	is >> intVal;
-	lvl = static_cast<Map::Level>(intVal);
-	return is;
-}
-
-std::ostream& operator<< (std::ostream &os, const Map::Level &lvl)
-{
-	switch (lvl) {
-	case Map::Level::EASY: return os << "Easy";
-	case Map::Level::MEDIUM: return os << "Medium";
-	case Map::Level::HARD: return os << "Hard";
-	}
-}
-
-Map::Map()
-{
-	std::cout << "\nChoose a difficulty:\n\n1 - EASY *\n2 - MEDIUM **\n3 - HARD ***\n" << std::endl;
-	std::cin >> difficulty; //el jugador introdueix la dificultata
-
-	numRows = (30 - 7 * static_cast<int>(difficulty)) + rand() % (31 - 5 * static_cast<int>(difficulty) - (30 - 7 * static_cast<int>(difficulty))); //crea nombre de files i columnes segons la dificultat escollida
-	numColumns = (9 + 5 * static_cast<int>(difficulty)) + rand() % (10 + 7 * static_cast<int>(difficulty) - (9 + 5 * static_cast<int>(difficulty)));
+	numRows = (30 - 7 * difficulty) + rand() % (31 - 5 * difficulty - (30 - 7 * difficulty)); //crea nombre de files i columnes segons la dificultat escollida
+	numColumns = (9 + 5 * difficulty) + rand() % (10 + 7 * difficulty - (9 + 5 * difficulty));
 
 	mapMatrix = new char*[numRows]; //Crea una array dinamica de punters a chars (filas)
 
@@ -51,6 +30,8 @@ void Map::printMap() //funció per imprimir l'array dinàmica
 		}
 		std::cout << std::endl;
 	}
+	/*for (auto it = zombies.begin(); it != zombies.end(); ++it) //saber el numero de zombies que hi ha per cada lletra
+		std::cout << it->first << " hi ha " << it->second << std::endl;*/
 }
 
 void Map::createZombie(int num)
@@ -62,20 +43,29 @@ void Map::createZombie(int num)
 		{
 			randomZombie.y = rand() % (numColumns + 1);
 		}
-		//zombies.insert({ randomZombie.name + 32, randomZombie }); // Afegir a la STL
+		++zombies[randomZombie.name]; // si exiteix el zombi incrementa el valor i sino el posa a 0;
 		mapMatrix[randomZombie.x][randomZombie.y] = randomZombie.name;
 	}
 }
 
-void Map::killZombie(char letter)
+int Map::killZombies(char letter)
 {
-	
-	/*if (zombies.find(letter))
+	int numZombies;
+
+	for (int i{ 0 }; i < numRows; i++)
 	{
-		modifyMap(zombies.find.first(letter).x, zombies.find.first(letter).y, '.');
-		zombies.erase(zombies.find.first(letter));
-	}*/
-	
+		for (int j{ 0 }; j < numColumns; j++)
+		{
+			if (getCharMatrix(i, j) == (letter > 91 ? letter - 32 : letter))
+			{
+				mapMatrix[i][j] = '.';
+			}
+		}
+	}
+
+	numZombies = zombies[letter > 91 ? letter - 32 : letter];
+	zombies.erase(letter > 91 ? letter - 32 : letter);
+	return numZombies;
 }
 
 void Map::moveZombies()
@@ -113,13 +103,13 @@ char Map::getCharMatrix(int x, int y) //funció per retornar el caràcter que es t
 
 bool Map::zombiesWin()
 {
+	bool finish = false;
 	for (int i = 0; i < numColumns; i++)
 	{
-		if (getCharMatrix(numColumns, i) != '.')
-			return true;
-		else
-			return false;
+		if (getCharMatrix(numRows-1, i) != '.')
+			finish = true;
 	}
+	return finish;
 }
 
 Map::~Map()

@@ -7,9 +7,11 @@ class Player
 {
 private:
 	Map *map;
+	int score;
 public:
 	Player(Map *map2);
-	void play(enti::InputKey button);
+	void playerClick(enti::InputKey button);
+	int getScore();
 	~Player();
 };
 

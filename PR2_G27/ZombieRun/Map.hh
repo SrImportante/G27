@@ -1,5 +1,5 @@
 #pragma once
-#include <unordered_map>
+#include <map>
 
 /*struct coordinateHash
 {
@@ -20,24 +20,20 @@ struct zombie
 class Map
 {
 private:
-	enum class Level { EASY = 1, MEDIUM, HARD };
-	Level difficulty;
 	int numRows, numColumns;
 	char **mapMatrix;
-	std::unordered_map <char, zombie> zombies;
+	std::map<char, int> zombies;
 	int zombiesKilled;
 	int numZombie;
 public:
-	Map();
+	Map(int diff);
 	void printMap();
 	void modifyMap(int &x, int &y, char element);
 	char getCharMatrix(int x, int y);
 	void createZombie(int num);
-	void killZombie(char letter);
+	int killZombies(char letter); //retorna el numero de zombies morts
 	bool zombiesWin();
 	void moveZombies();
-	friend std::istream& operator >> (std::istream &is, Level &lvl);
-	friend std::ostream& operator<< (std::ostream &os, const Level &lvl);
 	~Map();
 };
 
